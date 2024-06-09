@@ -1,0 +1,23 @@
+/* MyIngridients.css */
+
+.ingredients-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ingredient-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+.ingredient-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}

@@ -1,0 +1,62 @@
+.add-recipes {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .add-recipes h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-recipes form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-recipes form div {
+    margin-bottom: 15px;
+  }
+  
+  .add-recipes form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .add-recipes form input,
+  .add-recipes form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .add-recipes form input[type="file"] {
+    padding: 3px;
+  }
+  
+  .add-recipes form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .add-recipes form button:hover {
+    background-color: #218838;
+  }
+  
+  .add-recipes p {
+    text-align: center;
+    font-weight: bold;
+    color: green;
+  }
+  
