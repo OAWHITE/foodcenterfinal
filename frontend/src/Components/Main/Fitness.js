@@ -128,7 +128,7 @@ export default function Fitness() {
     )
 }
 
-function CoachProfile({ src, name, description, experience }) {
+function CoachProfile({ src, name, description, experience, email }) {
     return (
         <section className="px-10 py-8 mt-10 w-full border border-black border-solid bg-stone-100 max-w-[1654px] rounded-[51px] shadow-[0px_4px_35px_rgba(0,0,0,0.25)] max-md:px-5 max-md:max-w-full">
             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -140,6 +140,7 @@ function CoachProfile({ src, name, description, experience }) {
                         <p className="text-4xl text-black max-md:max-w-full">{name}</p>
                         <p className="mt-6 font-bold max-md:max-w-full">experience: {experience}</p>
                         <p className="mt-12 max-md:mt-10 max-md:max-w-full">{description}</p>
+                        <p className="mt-12 max-md:mt-10 max-md:max-w-full text-end">{email}</p>
                     </div>
                 </div>
             </div>

@@ -46,18 +46,14 @@ const responsive = {
 };
 
 export default function Home() {
-    // const response = await fetch(`https://api.api-ninjas.com/v1/recipe?query=${query}`, {
-
-    const [query, setQuery] = useState('');
+    const [title, setTitle] = useState('');
+    const [region, setRegion] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=4905c962a9844760a60cf260e9b977a8&query=${query}`);
-        const data = await response.json();
-        navigate('/recettes', { state: { recipes: data } });
-    };
-
+        navigate('/recettes', { state: { title, region } });
+      };
 
     return (
         <>
@@ -66,21 +62,33 @@ export default function Home() {
         <MiddleLeft className="absolute z-[-1] top-[87%] left-[-45%] w-[100%] h-[50%]" fill="#00BFFF"/>
         <MiddleRight className="absolute z-[-1] bottom-[-55%] right-[0%] w-[10%] h-[40%]" fill="#00BFFF"/>
         <BottomLeft className="absolute z-[-1] bottom-[-280%] left-[0%] w-[10%] h-[70%]" fill="#00BFFF"/>
-        <BottomRight className="absolute z-[-1] bottom-[-325%] right-[0%] w-[40%] h-[70%]" fill="#00BFFF"/>
+        <BottomRight className="absolute z-[-1] bottom-[-350%] right-[0%] w-[40%] h-[70%]" fill="#00BFFF"/>
         <main className="main-content">
-            <section className="search-section">
-                <form className="flex gap-5 max-md:flex-col max-md:gap-0 pb-3" onSubmit={handleSubmit}>
-                    <div className="flex flex-col w-full">
-                    <label className="text-lg font-medium"> Region </label>
-                    <input name="region" className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Morocco" />
-                    </div>
-                    <div className="flex flex-col w-full">
-                    <label className="text-lg font-medium"> Meal </label>
-                    <input name="meal" className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Tagine" />
-                    </div>
-                    <button type="submit" className="flex justify-center p-3 mt-11 w-50 h-[30%] text-xl font-medium text-black bg-amber-500 rounded-2xl max-md:px-5 max-md:mt-10" aria-label="Search" > Search </button>
-                </form>
-            </section>
+        <section className="search-section">
+          <form className="flex gap-5 max-md:flex-col max-md:gap-0 pb-3" onSubmit={handleSubmit}>
+            <div className="flex flex-col w-full">
+              <label className="text-lg font-medium"> Meal </label>
+              <input
+                name="meal"
+                className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200"
+                placeholder="Tagine"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col w-full">
+              <label className="text-lg font-medium"> Region </label>
+              <input
+                name="region"
+                className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200"
+                placeholder="Morocco"
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="flex justify-center p-3 mt-11 w-50 h-[30%] text-xl font-medium text-black bg-amber-500 rounded-2xl max-md:px-5 max-md:mt-10" aria-label="Search"> Search </button>
+          </form>
+        </section>
             <div className="flex flex-col pt-11 pb-5">
                 <h2 className="mt-20 pl-10 text-4xl max-md:mt-10 max-md:max-w-full"> Best Meals </h2>
                 <div className="flex flex-col w-full text-3xl text-teal-400 max-md:pl-5 max-md:max-w-full">

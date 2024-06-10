@@ -101,8 +101,6 @@ export default function Celebrities() {
                         <label className="text-lg font-medium">Nationality</label>
                         <input name="nationality" className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Morocco" onChange={(e) => setNationality(e.target.value)}/>
                     </div>
-                   
-                    
                     <button type="submit" className="flex justify-center p-2 mt-12 w-full text-xl font-medium text-black bg-amber-500 rounded-2xl max-md:px-5 max-md:mt-10" aria-label="Search">
                         Search
                     </button>
@@ -113,7 +111,7 @@ export default function Celebrities() {
                     {currentItems.map((celeb) => (
                         <section key={celeb.id} onClick={() => handleCelebrityClick(celeb.id)} className="cursor-pointer flex flex-col pt-7 pr-20 pb-8 pl-7 mt-16 border border-black border-solid bg-stone-100 rounded-[51px] shadow-[0px_4px_35px_rgba(0,0,0,0.25)] max-md:px-5 max-md:mt-10 max-md:max-w-full">
                             <div className="flex gap-5 text-5xl font-bold tracking-wide leading-6 text-center text-orange-400 whitespace-nowrap">
-                                <img loading="lazy" src={celeb.celebrityimage} className="shrink-0 w-24 aspect-[1.09] fill-orange-400 fill-opacity-50" alt={celeb.name} />
+                            <img loading="lazy" src={celeb.celebrityimage} className="w-[10%] fill-orange-400 fill-opacity-50 rounded-3xl" alt={celeb.name} />
                                 <div className="flex-auto my-auto">{celeb.name}</div>
                             </div>
                             <p className="mt-14 text-3xl text-neutral-800 max-md:mt-10 max-md:max-w-full">{celeb.nationality}</p>

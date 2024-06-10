@@ -79,8 +79,7 @@ export default function Recette() {
     return <div className="loading-message">Loading...</div>;
   }
 
-  console.log("Recipe data:", recipe); // Log the recipe data to check the image URL
-  console.log("Ingredients data:", ingredients); // Log the ingredients data
+  // const ingredients = JSON.parse(recipe.ingredients);
 
   return (
     <>
@@ -120,6 +119,11 @@ export default function Recette() {
                   <li key={index}>{ingredient.name}</li>
                 )) : <p>Ingredients not available</p>}
               </ul>
+              {/* <ul className="font-medium text-black max-md:mt-10 max-md:mr-2.5 max-md:max-w-full list-disc pl-8">
+                {ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul> */}
               <div>
                 <h3 className="text-3xl font-bold text-gray-800 mb-4">Instructions:</h3>
                 {recipe.instructions ? (

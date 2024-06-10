@@ -41,6 +41,8 @@ export default function Home() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]); // State for favorite recipes
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState('');
+  const [region, setRegion] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,36 +66,17 @@ export default function Home() {
         setFavoriteRecipes(response.data);
       } catch (error) {
         console.error("Error fetching favorite recipes:", error);
-        setError("Failed to load favorite recipes. Please try again later.");
+        // setError("Failed to load favorite recipes. Please try again later.");
       }
     };
 
     fetchRecipes();
-    fetchFavoriteRecipes(); // Fetch favorite recipes
+    fetchFavoriteRecipes();
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-    let filteredRecipes = recipes;
-
-    if (data.meal && data.region) {
-      filteredRecipes = recipes.filter(recipe =>
-        recipe.title.toLowerCase().includes(data.meal.toLowerCase()) &&
-        recipe.region.toLowerCase().includes(data.region.toLowerCase())
-      );
-    } else if (data.region) {
-      filteredRecipes = recipes.filter(recipe =>
-        recipe.region.toLowerCase().includes(data.region.toLowerCase())
-      );
-    } else if (data.meal) {
-      filteredRecipes = recipes.filter(recipe =>
-        recipe.title.toLowerCase().includes(data.meal.toLowerCase())
-      );
-    }
-
-    navigate('/recipeslist', { state: { filteredRecipes } });
+    navigate('/recettes', { state: { title, region } });
   };
 
   const handleRecipeClick = (id) => {
@@ -116,8 +99,8 @@ export default function Home() {
       <TopRight className="absolute z-[-1] top-[0] right-[0] w-[29%] h-[40%]" fill="#4EABBF" />
       <MiddleLeft className="absolute z-[-1] top-[87%] left-[-45%] w-[100%] h-[50%]" fill="#4EABBF" />
       <MiddleRight className="absolute z-[-1] bottom-[-55%] right-[0%] w-[10%] h-[40%]" fill="#4EABBF" />
-      <BottomLeft className="absolute z-[-1] bottom-[-280%] left-[0%] w-[10%] h-[70%]" fill="#4EABBF" />
-      <BottomRight className="absolute z-[-1] bottom-[-325%] right-[0%] w-[40%] h-[70%]" fill="#4EABBF" />
+      <BottomLeft className="absolute z-[-1] bottom-[-315%] left-[0%] w-[10%] h-[70%]" fill="#4EABBF" />
+      <BottomRight className="absolute z-[-1] bottom-[-370%] right-[0%] w-[40%] h-[70%]" fill="#4EABBF" />
       <main className="main-content mt-24">
         <div className="hero">
           <div className="hero-content">
@@ -152,14 +135,26 @@ export default function Home() {
         <section className="search-section">
           <form className="flex gap-5 max-md:flex-col max-md:gap-0 pb-3" onSubmit={handleSubmit}>
             <div className="flex flex-col w-full">
-              <label className="text-lg font-medium"> Region </label>
-              <input name="region" className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Morocco" />
+              <label className="text-lg font-medium"> Meal </label>
+              <input
+                name="meal"
+                className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200"
+                placeholder="Tagine"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
             <div className="flex flex-col w-full">
-              <label className="text-lg font-medium"> Meal </label>
-              <input name="meal" className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Tagine" />
+              <label className="text-lg font-medium"> Region </label>
+              <input
+                name="region"
+                className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200"
+                placeholder="Morocco"
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+              />
             </div>
-            <button type="submit" className="flex justify-center p-3 mt-11 w-50 h-[30%] text-xl font-medium text-black bg-amber-500 rounded-2xl max-md:px-5 max-md:mt-10" aria-label="Search" > Search </button>
+            <button type="submit" className="flex justify-center p-3 mt-11 w-50 h-[30%] text-xl font-medium text-black bg-amber-500 rounded-2xl max-md:px-5 max-md:mt-10" aria-label="Search"> Search </button>
           </form>
         </section>
       
@@ -171,7 +166,7 @@ export default function Home() {
               <Carousel responsive={responsive}>
                 {recipes.length > 0 ? recipes.map((recipe, index) => (
                   <div key={index} className="flex flex-col flex-1 self-start mt-2 whitespace-nowrap" onClick={() => handleRecipeClick(recipe.id)}>
-                    <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-5" />
+                    <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-3 rounded-3xl" />
                     <div className="self-start ml-12 max-md:ml-2.5">{recipe.title}</div>
                   </div>
                 )) : <p>No recipes available</p>}
@@ -182,7 +177,7 @@ export default function Home() {
                 <Carousel responsive={responsive}>
                   {recipes.length > 0 ? recipes.map((recipe, index) => (
                     <div key={index} className="flex flex-col flex-1 self-start mt-2 whitespace-nowrap" onClick={() => handleRecipeClick(recipe.id)}>
-                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-5" />
+                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-3 rounded-3xl" />
                       <div className="self-start ml-12 max-md:ml-2.5">{recipe.title}</div>
                     </div>
                   )) : <p>No recipes available</p>}
@@ -193,23 +188,23 @@ export default function Home() {
                 <Carousel responsive={responsive}>
                   {best.length > 0 ? best.map((recipe, index) => (
                     <div key={index} className="flex flex-col flex-1 self-start mt-2 whitespace-nowrap" onClick={() => handleRecipeClick(recipe.id)}>
-                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-5" />
+                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-3 rounded-3xl" />
                       <div className="self-start ml-12 max-md:ml-2.5">{recipe.title}</div>
                     </div>
                   )) : <p>No recipes available</p>}
                 </Carousel>
               </div>
-              <h2 className="mt-20 pl-10 text-3xl max-md:mt-10 max-md:max-w-full text-black">Favorite Recipes:</h2> {/* New section for favorite recipes */}
-              <div className="flex flex-col w-full text-3xl text-teal-400 max-md:pl-5 max-md:max-w-full">
+              {/* <h2 className="mt-20 pl-10 text-3xl max-md:mt-10 max-md:max-w-full text-black">Favorite Recipes:</h2> {/* New section for favorite recipes */}
+              {/* <div className="flex flex-col w-full text-3xl text-teal-400 max-md:pl-5 max-md:max-w-full">
                 <Carousel responsive={responsive}>
                   {favoriteRecipes.length > 0 ? favoriteRecipes.map((recipe, index) => (
                     <div key={index} className="flex flex-col flex-1 self-start mt-2 whitespace-nowrap" onClick={() => handleRecipeClick(recipe.id)}>
-                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-5" />
+                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-3 rounded-3xl" />
                       <div className="self-start ml-12 max-md:ml-2.5">{recipe.title}</div>
                     </div>
                   )) : <p>No favorite recipes available</p>}
                 </Carousel>
-              </div>
+              </div> */}
           </section>
         <Guide />
         <Footer />

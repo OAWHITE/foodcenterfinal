@@ -42,45 +42,88 @@ export default function CelebrityDetails() {
     }
 
     return (
+        // <>
+        //     <TopLeft className="absolute z-[-1] top-[0] left-[0] w-[29%] h-[30%]" fill="#FF4081"/>
+        //     <TopRight className="absolute z-[-1] top-[0] right-[0] w-[29%] h-[40%]" fill="#FF4081"/>
+        //     <MiddleLeft className="absolute z-[-1] top-[87%] left-[-45%] w-[100%] h-[50%]" fill="#FF4081"/>
+        //     <MiddleRight className="absolute z-[-1] bottom-[-60%] right-[0%] w-[10%] h-[40%]" fill="#FF4081"/>
+        //     <BottomLeft className="absolute z-[-1] bottom-[-120%] left-[0%] w-[10%] h-[70%]" fill="#FF4081"/>
+        //     <BottomRight className="absolute z-[-1] bottom-[-165%] right-[0%] w-[40%] h-[70%]" fill="#FF4081"/>
+        //     <div className="mx-auto p-5">
+        //         <main className="box-border flex relative flex-col shrink-0 mt-5">
+        //             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+        //                 <section className="flex flex-col max-md:ml-0 max-md:w-full">
+        //                     <div>
+        //                         <img className="rounded-3xl mb-10 shadow" src={celebrity.celebrityimage} alt={celebrity.name} />
+        //                     </div>
+        //                     <h2 className="ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Details: </h2>
+        //                     <div className="flex flex-col text-2xl pl-10 pr-40 py-9 w-full whitespace-nowrap shadow-2xl backdrop-blur bg-white bg-opacity-80 rounded-[52px] max-md:px-5 max-md:mt-10 mb-10">
+        //                         <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Name: {celebrity.name}</p>
+        //                         <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Description: {celebrity.description}</p>
+        //                     </div>
+        //                 </section>
+        //                 <div className="flex flex-col ml-5 max-md:ml-0 max-md:w-full">
+        //                     <h1 className="text-4xl font-bold text-gray-800">{celebrity.name}</h1>
+        //                     <p className="mt-11 font-medium text-black max-md:mt-10 max-md:mr-2.5 max-md:max-w-full">
+        //                         {celebrity.description}
+        //                     </p>
+        //                     <h2 className="mt-11 font-bold text-3xl">Favorite Recipes:</h2>
+        //                     <ul className="list-disc list-inside text-xl text-neutral-600">
+        //                         {celebrity.recipes && celebrity.recipes.map(recipe => (
+        //                             <li key={recipe.id}>
+        //                                 <img src={recipe.image} alt={recipe.title} className="inline-block w-8 h-8 mr-2"/>
+        //                                 {recipe.title}
+        //                             </li>
+        //                         ))}
+        //                     </ul>
+        //                 </div>
+        //             </div>
+        //         </main>
+        //     </div>
+        //     <Footer className="p-3"/>
+        // </>
+
         <>
-            <TopLeft className="absolute z-[-1] top-[0] left-[0] w-[29%] h-[30%]" fill="#FF4081"/>
-            <TopRight className="absolute z-[-1] top-[0] right-[0] w-[29%] h-[40%]" fill="#FF4081"/>
-            <MiddleLeft className="absolute z-[-1] top-[87%] left-[-45%] w-[100%] h-[50%]" fill="#FF4081"/>
-            <MiddleRight className="absolute z-[-1] bottom-[-60%] right-[0%] w-[10%] h-[40%]" fill="#FF4081"/>
-            <BottomLeft className="absolute z-[-1] bottom-[-120%] left-[0%] w-[10%] h-[70%]" fill="#FF4081"/>
-            <BottomRight className="absolute z-[-1] bottom-[-165%] right-[0%] w-[40%] h-[70%]" fill="#FF4081"/>
-            <div className="mx-auto p-5">
-                <main className="box-border flex relative flex-col shrink-0 mt-5">
-                    <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                        <section className="flex flex-col max-md:ml-0 max-md:w-full">
-                            <div>
-                                <img className="rounded-3xl mb-10 shadow" src={celebrity.celebrityimage} alt={celebrity.name} />
-                            </div>
-                            <h2 className="ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Details: </h2>
-                            <div className="flex flex-col text-2xl pl-10 pr-40 py-9 w-full whitespace-nowrap shadow-2xl backdrop-blur bg-white bg-opacity-80 rounded-[52px] max-md:px-5 max-md:mt-10 mb-10">
-                                <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Name: {celebrity.name}</p>
-                                <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Description: {celebrity.description}</p>
-                            </div>
-                        </section>
-                        <div className="flex flex-col ml-5 max-md:ml-0 max-md:w-full">
-                            <h1 className="text-4xl font-bold text-gray-800">{celebrity.name}</h1>
-                            <p className="mt-11 font-medium text-black max-md:mt-10 max-md:mr-2.5 max-md:max-w-full">
-                                {celebrity.description}
-                            </p>
+        <TopLeft className="absolute z-[-1] top-[0] left-[0] w-[29%] h-[30%]" fill="#FF4081"/>
+        <TopRight className="absolute z-[-1] top-[0] right-[0] w-[29%] h-[40%]" fill="#FF4081"/>
+        {/* <MiddleLeft className="absolute z-[-1] top-[87%] left-[-45%] w-[100%] h-[50%]" fill="#FF4081"/>
+        <MiddleRight className="absolute z-[-1] bottom-[-60%] right-[0%] w-[10%] h-[40%]" fill="#FF4081"/> */}
+        <BottomLeft className="absolute z-[-1] bottom-[-25%] left-[0%] w-[10%] h-[70%]" fill="#FF4081"/>
+        <BottomRight className="absolute z-[-1] bottom-[-80%] right-[0%] w-[40%] h-[70%]" fill="#FF4081"/>
+        <div className="mx-auto p-5">
+            <main className="box-border flex relative flex-col shrink-0 mt-5">
+                <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                    <section className="flex flex-col max-md:ml-0 max-md:w-full">
+                        <div>
+                            <img className="rounded-3xl mb-10 shadow" src={celebrity.celebrityimage} alt={celebrity.name} />
+                        </div>
+                        <h2 className="ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Details: </h2>
+                        <div className="flex flex-col text-2xl pl-10 pr-40 py-9 w-full whitespace-nowrap shadow-2xl backdrop-blur bg-white bg-opacity-80 rounded-[52px] max-md:px-5 max-md:mt-10 mb-10">
+                            <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Name: {celebrity.name}</p>
+                            <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Nationality: {celebrity.nationality}</p>
+                            {/* <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Experience: {celebrity.experience}</p> */}
+                        </div>
+                    </section>
+                    <div className="flex flex-col ml-5 max-md:ml-0 max-md:w-full">
+                        <h1 className="text-4xl font-bold text-gray-800">{celebrity.name}</h1>
+                        <p className="mt-11 font-medium text-black max-md:mt-10 max-md:mr-2.5 max-md:max-w-full">
+                            {celebrity.description}
+
                             <h2 className="mt-11 font-bold text-3xl">Favorite Recipes:</h2>
                             <ul className="list-disc list-inside text-xl text-neutral-600">
                                 {celebrity.recipes && celebrity.recipes.map(recipe => (
                                     <li key={recipe.id}>
-                                        <img src={recipe.image} alt={recipe.title} className="inline-block w-8 h-8 mr-2"/>
+                                        <img src={recipe.image} alt={recipe.title} className="inline-block w-15 h-15 mt-5 mr-2 rounded-3xl"/>
                                         {recipe.title}
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </p>
                     </div>
-                </main>
-            </div>
-            <Footer className="p-3"/>
+                </div>
+            </main>
+        </div>
+        <Footer className="p-3 mt-5"/>
         </>
     );
 }

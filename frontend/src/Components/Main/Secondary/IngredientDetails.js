@@ -59,17 +59,14 @@ export default function IngredientDetails() {
                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Name: {ingredient.name}</p>
                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Type: {ingredient.type}</p>
                 </div>
-                
-              <h2 className="ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Nutrition: </h2>
+            </section>
+              <h2 className="d-block ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Nutrition: </h2>
               <div className="flex flex-col text-2xl pl-10 pr-40 py-9 w-full whitespace-nowrap shadow-2xl backdrop-blur bg-white bg-opacity-80 rounded-[52px] max-md:px-5 max-md:mt-10 mb-10">
                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Calories: {ingredient.calories}</p>
                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Carbs: {ingredient.carbs}</p>
                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Fat: {ingredient.fat}</p>
                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Protein: {ingredient.protein}</p>
               </div>
-         
-           
-            </section>
           </div>
         </main>
       </div>
