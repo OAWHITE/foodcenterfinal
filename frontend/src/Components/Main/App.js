@@ -22,10 +22,14 @@ import AddIngredient from "../Add/AddIngredient";
 import IngredientDetails from './Secondary/IngredientDetails';
 import IngredientsSearch from './Secondary/IngredientsSearch';
 import EditRecipe from './Secondary/EditRecipe';
+import ListIngredients from './Secondary/ListIngredients';
+import EditCelebrity from './Secondary/EditCelebrity';
+import EditIngredient from './Secondary/EditIngredient';
+import ListCelebrities from './Secondary/ListCelebrities ';
+import AddCoach from '../Add/AddCoach';  // Import the new component
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../../Styles/Navbar.css';
-import CelebrityDetails from './Secondary/CelebrityDetail';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,10 +75,15 @@ function App() {
                 <Route path="/recettes" element={<Recettes />} />
                 <Route path="/recette" element={<Recette />} />
                 <Route path="/addingredient" element={<AddIngredient />} />
-                <Route path="/CelebrityDetails" element={<CelebrityDetails />} />
+                <Route path="/celebritydetails" element={<CelebrityDetail />} />
                 <Route path="/ingredients-search" element={<IngredientsSearch />} />
                 <Route path="/ingredient/:id" element={<IngredientDetails />} />
+                <Route path="/edit-ingredient/:id" element={<EditIngredient />} />
+                <Route path="/edit-celebrity/:id" element={<EditCelebrity />} />
+                <Route path="/list-ingredients" element={<ListIngredients />} />
+                <Route path="/list-celebrities" element={<ListCelebrities />} />
                 <Route path="/addrecipeingredient" element={<AddRecipeIngredient />} />
+                <Route path="/add-coach" element={<AddCoach />} />  {/* Add the new route */}
             </Routes>
         </Router>
     );

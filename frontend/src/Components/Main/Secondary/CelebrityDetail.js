@@ -24,7 +24,7 @@ export default function CelebrityDetails() {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/api/celebrities/${id}`);
                 setCelebrity(response.data);
-                } catch (error) {
+            } catch (error) {
                 console.error("Error fetching celebrity:", error);
                 setError("Failed to load the celebrity. Please try again later.");
             }
@@ -59,6 +59,7 @@ export default function CelebrityDetails() {
                             <h2 className="ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Details: </h2>
                             <div className="flex flex-col text-2xl pl-10 pr-40 py-9 w-full whitespace-nowrap shadow-2xl backdrop-blur bg-white bg-opacity-80 rounded-[52px] max-md:px-5 max-md:mt-10 mb-10">
                                 <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Name: {celebrity.name}</p>
+                                <p className='p-2 bg-stone-100 my-2 rounded-3xl'>Description: {celebrity.description}</p>
                             </div>
                         </section>
                         <div className="flex flex-col ml-5 max-md:ml-0 max-md:w-full">
@@ -66,6 +67,15 @@ export default function CelebrityDetails() {
                             <p className="mt-11 font-medium text-black max-md:mt-10 max-md:mr-2.5 max-md:max-w-full">
                                 {celebrity.description}
                             </p>
+                            <h2 className="mt-11 font-bold text-3xl">Favorite Recipes:</h2>
+                            <ul className="list-disc list-inside text-xl text-neutral-600">
+                                {celebrity.recipes && celebrity.recipes.map(recipe => (
+                                    <li key={recipe.id}>
+                                        <img src={recipe.image} alt={recipe.title} className="inline-block w-8 h-8 mr-2"/>
+                                        {recipe.title}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </main>

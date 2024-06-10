@@ -8,6 +8,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecipeIngredientController;
+use App\Http\Controllers\UserRecipeController;
 
 
 
@@ -20,7 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/recipes', [RecipeController::class, 'store']);
     Route::post('/celebrities', [CelebrityController::class, 'store']);
-    
+    Route::post('/recipes/favorite', [UserRecipeController::class, 'favoriteRecipe']);
+    Route::get('/user/favorites', [UserRecipeController::class, 'getUserFavorites']); // New route
+
     // Other protected routes
     Route::put('/recipes/{id}', [RecipeController::class, 'update']);
 });
@@ -31,6 +34,8 @@ Route::post('/recipe-ingredients', [RecipeIngredientController::class, 'store'])
 
 Route::get('/celebrities', [CelebrityController::class, 'index']);
 Route::get('/celebrities/{id}', [CelebrityController::class, 'show']);
+Route::post('/celebrities/favorites', [CelebrityController::class, 'getCelebrityFav']);
+Route::post('/celebrities', [CelebrityController::class, 'store']);
 Route::put('/celebrities/{id}', [CelebrityController::class, 'update']);
 Route::delete('/celebrities/{id}', [CelebrityController::class, 'destroy']);
 

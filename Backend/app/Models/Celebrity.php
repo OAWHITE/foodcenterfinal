@@ -14,8 +14,14 @@ class Celebrity extends Model
         'description',
         'celebrityimage',
     ];
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return $this->celebrityimage ? url('images/' . $this->celebrityimage) : null;
+    }
     public function recipes()
     {
         return $this->belongsToMany(Recipe::class, 'celebrity_recipes');
     }
-}
+    }

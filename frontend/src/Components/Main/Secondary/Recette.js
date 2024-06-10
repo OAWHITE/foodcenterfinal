@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirecting after login
 import TopLeft from "../../Decoration/top-left";
 import TopRight from "../../Decoration/top-right";
 import MiddleLeft from "../../Decoration/middle-left";
@@ -13,7 +14,9 @@ export default function Recette() {
   const [recipe, setRecipe] = useState(null);
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null); // Add user state
   const location = useLocation();
+  const navigate = useNavigate(); // Initialize useNavigate
   const { id } = location.state || {};
 
   useEffect(() => {
@@ -38,8 +41,35 @@ export default function Recette() {
       }
     };
 
+    const fetchUser = async () => {
+      try {
+        const userResponse = await axios.get('http://127.0.0.1:8000/api/user');
+        setUser(userResponse.data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
     fetchRecipe();
+    fetchUser(); // Fetch the logged-in user
   }, [id]);
+
+  const handleFavorite = async () => {
+    if (!user) {
+      navigate('/login'); // Redirect to login if the user is not logged in
+      return;
+    }
+
+    try {
+      await axios.post('http://127.0.0.1:8000/api/recipes/favorite', {
+        recipe_id: recipe.id
+      });
+      alert('Recipe added to favorites!');
+    } catch (error) {
+      console.error("Error favoriting recipe:", error);
+      alert('Failed to favorite the recipe. Please try again later.');
+    }
+  };
 
   if (error) {
     return <div className="error-message">{error}</div>;
@@ -102,6 +132,9 @@ export default function Recette() {
                   <p className="text-xl text-gray-700">Instructions not available</p>
                 )}
               </div>
+              <button onClick={handleFavorite} className="mt-8 bg-blue-500 text-white px-4 py-2 rounded-lg">
+                Add to Favorites
+              </button>
             </div>
           </div>
         </main>

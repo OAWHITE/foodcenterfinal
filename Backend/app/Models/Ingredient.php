@@ -17,7 +17,6 @@ class Ingredient extends Model
         'fat',
         'carbs',
         'protein',
-        'avg_rating',
     ];
     public function recipes()
     {

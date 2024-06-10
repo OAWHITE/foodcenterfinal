@@ -74,6 +74,14 @@ export default function Navbar({ isLoggedIn, handleLogout, userRole }) {
                                             <FaPlus className='mt-1 mr-1'/>
                                             manage Recipes
                                         </CDropdownItem>
+                                        <CDropdownItem href='/list-celebrities' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            manage Celebrities
+                                        </CDropdownItem>
+                                        <CDropdownItem href='/list-ingredients' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            manage Ingredients
+                                        </CDropdownItem>
                                     </>
                                 )}
                             </CDropdownMenu>

@@ -16,16 +16,31 @@ export default function Celebrities() {
     const [nationality, setNationality] = useState('');
     const [filteredCelebrities, setFilteredCelebrities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [recipes, setRecipes] = useState([]);
+    const [selectedRecipes, setSelectedRecipes] = useState([]);
     const itemsPerPage = 5;
 
     useEffect(() => {
         fetchCelebrities();
+        fetchRecipes();
     }, []);
 
     const fetchCelebrities = async () => {
         const response = await axios.get('http://127.0.0.1:8000/api/celebrities');
         setCelebrity(response.data);
         setFilteredCelebrities(response.data);
+    };
+
+    const fetchRecipes = async () => {
+        const response = await axios.get('http://127.0.0.1:8000/api/recipes');
+        setRecipes(response.data);
+    };
+
+    const handleRecipeChange = (event) => {
+        const { value, checked } = event.target;
+        setSelectedRecipes(prevSelected =>
+            checked ? [...prevSelected, value] : prevSelected.filter(recipeId => recipeId !== value)
+        );
     };
 
     const handleSubmit = async (event) => {
@@ -38,6 +53,11 @@ export default function Celebrities() {
 
         if (nationality.trim() !== '') {
             filtered = filtered.filter(celeb => celeb.nationality && celeb.nationality.toLowerCase().includes(nationality.toLowerCase()));
+        }
+
+        if (selectedRecipes.length > 0) {
+            const response = await axios.post('http://127.0.0.1:8000/api/celebrities/favorites', { recipes: selectedRecipes });
+            filtered = response.data;
         }
 
         setFilteredCelebrities(filtered);
@@ -78,9 +98,11 @@ export default function Celebrities() {
                         <input className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Dwayne the Rock" onChange={(e) => setQuery(e.target.value)}/>
                     </div>
                     <div className="flex flex-col w-full">
-                        <label className="text-lg font-medium"> Nationality </label>
+                        <label className="text-lg font-medium">Nationality</label>
                         <input name="nationality" className="justify-center p-3 mt-3 rounded-2xl border border-solid border-zinc-200" placeholder="Morocco" onChange={(e) => setNationality(e.target.value)}/>
                     </div>
+                   
+                    
                     <button type="submit" className="flex justify-center p-2 mt-12 w-full text-xl font-medium text-black bg-amber-500 rounded-2xl max-md:px-5 max-md:mt-10" aria-label="Search">
                         Search
                     </button>

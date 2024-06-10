@@ -16,7 +16,7 @@ class Recipe extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset('storage/' . $this->image) : null;
+        return $this->image ? url('images/' . $this->image) : null;
     }
     public function user()
     {
@@ -30,6 +30,10 @@ class Recipe extends Model
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class, 'recipe_ingredients');
+    }
+    public function celebrities()
+    {
+        return $this->belongsToMany(Celebrity::class, 'celebrity_recipes');
     }
   
 }

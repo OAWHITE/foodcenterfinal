@@ -11,10 +11,30 @@ class UserRecipeController extends Controller
     {
         return UserRecipe::all();
     }
+    public function getUserFavorites()
+    {
+        $user = Auth::user();
+        $favoriteRecipes = Recipe::whereIn('id', UserRecipe::where('user_id', $user->id)->pluck('recipe_id'))->get();
 
+        return response()->json($favoriteRecipes);
+    }
     public function create()
     {
         //
+    }
+    public function favoriteRecipe(Request $request)
+    {
+        $request->validate([
+            'recipe_id' => 'required|exists:recipes,id',
+        ]);
+
+        $user = Auth::user();
+        $userRecipe = UserRecipe::create([
+            'user_id' => $user->id,
+            'recipe_id' => $request->recipe_id,
+        ]);
+
+        return response()->json($userRecipe, 201);
     }
 
     public function store(Request $request)

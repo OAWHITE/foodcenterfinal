@@ -38,10 +38,11 @@ const responsive = {
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]); // State for favorite recipes
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const fetchRecipes = async () => {
       const url = 'http://127.0.0.1:8000/api/recipes';
@@ -57,7 +58,18 @@ export default function Home() {
       }
     };
 
+    const fetchFavoriteRecipes = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/user/favorites');
+        setFavoriteRecipes(response.data);
+      } catch (error) {
+        console.error("Error fetching favorite recipes:", error);
+        setError("Failed to load favorite recipes. Please try again later.");
+      }
+    };
+
     fetchRecipes();
+    fetchFavoriteRecipes(); // Fetch favorite recipes
   }, []);
 
   const handleSubmit = (event) => {
@@ -185,6 +197,17 @@ export default function Home() {
                       <div className="self-start ml-12 max-md:ml-2.5">{recipe.title}</div>
                     </div>
                   )) : <p>No recipes available</p>}
+                </Carousel>
+              </div>
+              <h2 className="mt-20 pl-10 text-3xl max-md:mt-10 max-md:max-w-full text-black">Favorite Recipes:</h2> {/* New section for favorite recipes */}
+              <div className="flex flex-col w-full text-3xl text-teal-400 max-md:pl-5 max-md:max-w-full">
+                <Carousel responsive={responsive}>
+                  {favoriteRecipes.length > 0 ? favoriteRecipes.map((recipe, index) => (
+                    <div key={index} className="flex flex-col flex-1 self-start mt-2 whitespace-nowrap" onClick={() => handleRecipeClick(recipe.id)}>
+                      <img loading="lazy" src={recipe.image} alt={recipe.title} className="w-full aspect-[1.47] p-5" />
+                      <div className="self-start ml-12 max-md:ml-2.5">{recipe.title}</div>
+                    </div>
+                  )) : <p>No favorite recipes available</p>}
                 </Carousel>
               </div>
           </section>
