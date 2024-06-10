@@ -19,11 +19,11 @@ class Ingredient extends Model
         'protein',
         'avg_rating',
     ];
-
     public function recipes()
     {
         return $this->belongsToMany(Recipe::class, 'recipe_ingredients');
     }
+   
 
     public function units()
     {

@@ -16,11 +16,20 @@ class RecipeIngredientController extends Controller
     {
         //
     }
-
     public function store(Request $request)
     {
-        $recipeIngredient = RecipeIngredient::create($request->all());
-        return response()->json($recipeIngredient, 201);
+        $validatedData = $request->validate([
+            'recipe_id' => 'required|exists:recipes,id',
+            'ingredient_id' => 'required|exists:ingredients,id',
+            'quantity' => 'required|numeric',
+        ]);
+
+        $recipeIngredient = RecipeIngredient::create($validatedData);
+
+        return response()->json([
+            'message' => 'Recipe Ingredient added successfully!',
+            'data' => $recipeIngredient
+        ], 201);
     }
 
     public function show($id)

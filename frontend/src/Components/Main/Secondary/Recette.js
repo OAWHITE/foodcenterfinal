@@ -11,6 +11,7 @@ import Footer from './Footer';
 
 export default function Recette() {
   const [recipe, setRecipe] = useState(null);
+  const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
   const location = useLocation();
   const { id } = location.state || {};
@@ -22,14 +23,18 @@ export default function Recette() {
         return;
       }
 
-      const url = `http://127.0.0.1:8000/api/recipes/${id}`;
+      const recipeUrl = `http://127.0.0.1:8000/api/recipes/${id}`;
+      const ingredientsUrl = `http://127.0.0.1:8000/api/recipes/${id}/ingredients`;
 
       try {
-        const response = await axios.get(url);
-        setRecipe(response.data);
+        const recipeResponse = await axios.get(recipeUrl);
+        setRecipe(recipeResponse.data);
+
+        const ingredientsResponse = await axios.get(ingredientsUrl);
+        setIngredients(ingredientsResponse.data);
       } catch (error) {
-        console.error("Error fetching recipe:", error);
-        setError("Failed to load the recipe. Please try again later.");
+        console.error("Error fetching data:", error);
+        setError("Failed to load the recipe or ingredients. Please try again later.");
       }
     };
 
@@ -44,6 +49,9 @@ export default function Recette() {
     return <div className="loading-message">Loading...</div>;
   }
 
+  console.log("Recipe data:", recipe); // Log the recipe data to check the image URL
+  console.log("Ingredients data:", ingredients); // Log the ingredients data
+
   return (
     <>
       <TopLeft className="absolute z-[-1] top-[0] left-[0] w-[29%] h-[30%]" fill="#00BFFF" />
@@ -57,7 +65,11 @@ export default function Recette() {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <section className="flex flex-col max-md:ml-0 max-md:w-full">
               <div>
-                <img className="rounded-3xl mb-10 shadow" src={recipe.image} alt={recipe.title} />
+                {recipe.image ? (
+                  <img className="rounded-3xl mb-10 shadow" src={recipe.image} alt={recipe.title} />
+                ) : (
+                  <p>Image not available</p>
+                )}
               </div>
               <h2 className="ml-5 mt-2.5 text-2xl text-neutral-800 max-md:mt-10 ">Nutrition: </h2>
               <div className="flex flex-col text-2xl pl-10 pr-40 py-9 w-full whitespace-nowrap shadow-2xl backdrop-blur bg-white bg-opacity-80 rounded-[52px] max-md:px-5 max-md:mt-10 mb-10">
@@ -74,9 +86,9 @@ export default function Recette() {
               </p>
               <h3 className="mt-8 mb-4 text-2xl text-neutral-800 max-md:mt-10 font-bold">Ingredients:</h3>
               <ul className="font-medium text-black max-md:mt-10 max-md:mr-2.5 max-md:max-w-full list-disc pl-8">
-                {recipe.ingredients.split(',').map((ingredient, index) => (
-                  <li key={index}>{ingredient.trim()}</li>
-                ))}
+                {ingredients.length > 0 ? ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient.name}</li>
+                )) : <p>Ingredients not available</p>}
               </ul>
               <div>
                 <h3 className="text-3xl font-bold text-gray-800 mb-4">Instructions:</h3>

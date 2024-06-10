@@ -23,10 +23,18 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::findOrFail($id);
-        if ($recipe->image) {
-            $recipe->image = url(Storage::url($recipe->image));
-        }
+        $recipe->image = url('images/' . $recipe->image);
         return response()->json($recipe, 200);
+    }
+    public function getIngredients($id)
+    {
+        $recipe = Recipe::with('ingredients')->find($id);
+
+        if (!$recipe) {
+            return response()->json(['message' => 'Recipe not found'], 404);
+        }
+
+        return response()->json($recipe->ingredients);
     }
 
     public function store(Request $request)
@@ -121,8 +129,18 @@ class RecipeController extends Controller
 
 //     return response()->json($request->all(), 200);
 // }
+// RecipeController.php
 
-    public function destroy($id)
+public function getRecipesByIngredients(Request $request)
+{
+    $ingredientIds = $request->input('ingredients');
+    $recipes = Recipe::whereHas('ingredients', function ($query) use ($ingredientIds) {
+        $query->whereIn('ingredients.id', $ingredientIds);
+    })->get();
+
+    return response()->json($recipes);
+}
+  public function destroy($id)
     {
         $recipe = Recipe::findOrFail($id);
 

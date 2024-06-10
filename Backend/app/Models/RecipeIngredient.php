@@ -10,7 +10,7 @@ class RecipeIngredient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'recipe_id', 'ingredient_id', 'unit_id', 'quantity',
+        'recipe_id', 'ingredient_id', 'quantity',
     ];
 
     public function recipe()

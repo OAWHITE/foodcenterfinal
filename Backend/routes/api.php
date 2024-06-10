@@ -7,6 +7,9 @@ use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RecipeIngredientController;
+
+
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -23,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 // Route::post('/recipes/verify', [RecipeController::class, 'verify']);
 // Route::put('/recipes/{id}', [RecipeController::class, 'update']);
+Route::get('/recipe-ingredients', [RecipeIngredientController::class, 'index']);
+Route::post('/recipe-ingredients', [RecipeIngredientController::class, 'store']);
 
 Route::get('/celebrities', [CelebrityController::class, 'index']);
 Route::get('/celebrities/{id}', [CelebrityController::class, 'show']);
@@ -44,6 +49,9 @@ Route::put('/ingredients/{id}', [IngredientController::class, 'update']);
 Route::delete('/ingredients/{id}', [IngredientController::class, 'destroy']);
 
 // Recipe routes
+Route::get('/recipes/{id}/ingredients', [RecipeController::class, 'getIngredients']);
+Route::post('/recipes/by-ingredients', [RecipeController::class, 'getRecipesByIngredients']);
+
 Route::get('/recipes', [RecipeController::class, 'index']);
 // Route::post('/recipes', [RecipeController::class, 'store']);
 Route::get('/recipes/{id}', [RecipeController::class, 'show']);

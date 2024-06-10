@@ -13,6 +13,7 @@ import RecipeDetail from './Secondary/RecipeDetail';
 import RecipesList from './Secondary/RecipesList';
 import AdminRecipesList from './Secondary/AdminRecipesList';
 import AddCelebrity from '../Add/AddCelebrity';
+import AddRecipeIngredient from '../Add/AddRecipeIngredient';
 import CelebrityDetail from './Secondary/CelebrityDetail';
 import Recettes from "./Secondary/Recettes";
 import Recette from "./Secondary/Recette";
@@ -73,6 +74,7 @@ function App() {
                 <Route path="/CelebrityDetails" element={<CelebrityDetails />} />
                 <Route path="/ingredients-search" element={<IngredientsSearch />} />
                 <Route path="/ingredient/:id" element={<IngredientDetails />} />
+                <Route path="/addrecipeingredient" element={<AddRecipeIngredient />} />
             </Routes>
         </Router>
     );

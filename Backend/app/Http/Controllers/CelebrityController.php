@@ -52,11 +52,14 @@ class CelebrityController extends Controller
         return response()->json($celebrity, 201);
     }
 
+ 
     public function show($id)
     {
         $celebrity = Celebrity::findOrFail($id);
+        $celebrity->image = url('images/' . $celebrity->celebrityimage);
         return response()->json($celebrity, 200);
     }
+    
 
     public function update(Request $request, $id)
     {

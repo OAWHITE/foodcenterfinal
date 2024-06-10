@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Footer from "./Secondary/Footer";
-
 import { useNavigate } from "react-router";
 import MyIngridients from "./Secondary/MyIngridients";
 import TopLeft from "../Decoration/top-left";
@@ -9,11 +8,23 @@ import MiddleLeft from "../Decoration/middle-left";
 import MiddleRight from "../Decoration/middle-right";
 import BottomLeft from "../Decoration/bottom-left";
 import BottomRight from "../Decoration/bottom-right";
+import axios from 'axios';
 
 export default function MyFridge() {
   const [query, setQuery] = useState('');
   const [type, setType] = useState('');
   const navigate = useNavigate();
+
+  const handleGenerateRecipes = async (selectedIngredients) => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/recipes/by-ingredients', {
+        ingredients: selectedIngredients
+      });
+      navigate('/recipeslist', { state: { filteredRecipes: response.data } });
+    } catch (error) {
+      console.error('Error fetching recipes:', error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,7 +71,7 @@ export default function MyFridge() {
           </button>
         </form>
       </section>
-      <MyIngridients query={query} type={type} />
+      <MyIngridients query={query} type={type} onGenerate={handleGenerateRecipes} />
       <Footer />
     </>
   );

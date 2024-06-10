@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../../../Styles/Navbar.css';
 import '@coreui/coreui/dist/css/coreui.min.css';
-import { FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaCog, FaPlus, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react';
 
 const LanguageSelector = () => (
@@ -39,24 +39,43 @@ export default function Navbar({ isLoggedIn, handleLogout, userRole }) {
                         <NavLink to="/Fitness" className="Nav-item" activeClassName="active">Fitness</NavLink>
                         <NavLink to="/My-Fridge" className="Nav-item" activeClassName="active">My Fridge</NavLink>
                         <NavLink to="/About-Us" className="Nav-item" activeClassName="active">About Us</NavLink>
-                        {userRole === 'Admin' && (
-                            <>
-                                <NavLink to="/addrecipes" className="Nav-item" activeClassName="active">Add Recipes</NavLink>
-                                <NavLink to="/addcelebrity" className="Nav-item" activeClassName="active">Add Celebrity</NavLink>
-                                <NavLink to="/addingredient" className="Nav-item" activeClassName="active">Add Ingredient</NavLink>
-                            </>
-                        )}
-                        {/* <button onClick={handleLogoutClick} className="Nav-item">Logout</button> */}
-                        <CDropdown className='ml-24' isOpen={dropdownOpen} toggle={toggleDropdown}>
-                            <CDropdownToggle>
-                                <FaUser />
+                        <CDropdown alignment="end" className='ml-56' isOpen={dropdownOpen} toggle={toggleDropdown}>
+                            <CDropdownToggle className='d-flex bg-white'>
+                                <FaUser className='d-flex'/>
                             </CDropdownToggle>
                             <CDropdownMenu>
-                                <CDropdownItem>
-                                    <FaSignOutAlt />
+                                <CDropdownItem className='d-flex'>
+                                    <FaSignOutAlt className='mt-1 mr-1'/>
                                     <button onClick={handleLogoutClick} style={{ backgroundColor: "transparent" }}> Déconnexion </button>
                                 </CDropdownItem>
-                                <CDropdownItem href='Configuration'>Configuration</CDropdownItem>
+                                <CDropdownItem href='/Configuration' className='d-flex'>
+                                    <FaCog className='mt-1 mr-1'/>
+                                    Configuration
+                                </CDropdownItem>
+                                {userRole === 'Admin' && (
+                                    <>
+                                        <CDropdownItem href='/AddRecipes' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            Add Recipes
+                                        </CDropdownItem>
+                                        <CDropdownItem href='/AddCelebrity' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            Add Celebrity
+                                        </CDropdownItem>
+                                        <CDropdownItem href='/AddIngredient' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            Add Ingredient
+                                        </CDropdownItem>
+                                        <CDropdownItem href='/addrecipeingredient' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            ingedient Recipes
+                                        </CDropdownItem>
+                                        <CDropdownItem href='/admin-recipeslist' className='d-flex'>
+                                            <FaPlus className='mt-1 mr-1'/>
+                                            manage Recipes
+                                        </CDropdownItem>
+                                    </>
+                                )}
                             </CDropdownMenu>
                         </CDropdown>
                     </>
@@ -66,7 +85,7 @@ export default function Navbar({ isLoggedIn, handleLogout, userRole }) {
                         <NavLink to="/signup" className="Nav-item" activeClassName="active">Signup</NavLink>
                     </>
                 )}
-                <LanguageSelector />
+                {/* <LanguageSelector /> */}
             </nav>
         </div>
     );
