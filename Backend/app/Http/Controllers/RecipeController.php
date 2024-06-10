@@ -1,22 +1,19 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth; // Add this line
-
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
     public function index()
     {
         $recipes = Recipe::all()->map(function ($recipe) {
-            if ($recipe->image) {
-                $recipe->image = url(Storage::url($recipe->image));
-            }
+            $recipe->image = url('images/' . $recipe->image);
             return $recipe;
         });
 
@@ -55,8 +52,9 @@ class RecipeController extends Controller
             $recipe->region = $request->region;
 
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images', 'public');
-                $recipe->image = $imagePath;
+                $imageName = time().'.'.$request->image->extension();
+                $request->image->move(public_path('images'), $imageName);
+                $recipe->image = $imageName;
             }
 
             $recipe->fat = $request->fat;
@@ -68,22 +66,26 @@ class RecipeController extends Controller
 
             return response()->json(['message' => 'Recipe added successfully'], 201);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
+            Log::error($e->getMessage());
             return response()->json(['message' => 'Internal Server Error'], 500);
         }
     }
-    
 
     public function update(Request $request, $id)
     {
         $recipe = Recipe::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'string|max:255',
+            'description' => 'string',
+            'instructions' => 'string',
+            'calories' => 'nullable|integer',
+            'region' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fat' => 'nullable|numeric',
+            'carbs' => 'nullable|numeric',
+            'protein' => 'nullable|numeric'
         ]);
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
@@ -94,21 +96,38 @@ class RecipeController extends Controller
             if ($recipe->image) {
                 Storage::delete($recipe->image);
             }
-            $path = $request->file('image')->store('public/recipes');
+            $path = $request->file('image')->store('public/images');
             $data['image'] = $path;
+            Log::info('Image uploaded to: ' . $path);
         }
 
         $recipe->update($data);
 
+        if ($recipe->image) {
+            $recipe->image = url(Storage::url($recipe->image));
+        }
+
         return response()->json($recipe, 200);
     }
+
+      
+    
+    
+    
+//     public function verify(Request $request)
+// {
+//     Log::info('Verification request received.');
+//     Log::info('Request data:', $request->all());
+
+//     return response()->json($request->all(), 200);
+// }
 
     public function destroy($id)
     {
         $recipe = Recipe::findOrFail($id);
 
         if ($recipe->image) {
-            Storage::delete($recipe->image);
+            Storage::delete('public/' . $recipe->image);
         }
 
         $recipe->delete();

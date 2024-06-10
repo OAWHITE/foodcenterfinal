@@ -17,8 +17,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/recipes', [RecipeController::class, 'store']);
     Route::post('/celebrities', [CelebrityController::class, 'store']);
+    
     // Other protected routes
+    Route::put('/recipes/{id}', [RecipeController::class, 'update']);
 });
+// Route::post('/recipes/verify', [RecipeController::class, 'verify']);
+// Route::put('/recipes/{id}', [RecipeController::class, 'update']);
+
 Route::get('/celebrities', [CelebrityController::class, 'index']);
 Route::get('/celebrities/{id}', [CelebrityController::class, 'show']);
 Route::put('/celebrities/{id}', [CelebrityController::class, 'update']);
@@ -42,12 +47,12 @@ Route::delete('/ingredients/{id}', [IngredientController::class, 'destroy']);
 Route::get('/recipes', [RecipeController::class, 'index']);
 // Route::post('/recipes', [RecipeController::class, 'store']);
 Route::get('/recipes/{id}', [RecipeController::class, 'show']);
-Route::put('/recipes/{id}', [RecipeController::class, 'update']);
+// Route::put('/recipes/{id}', [RecipeController::class, 'update']);
 Route::delete('/recipes/{id}', [RecipeController::class, 'destroy']);
 
 // User routes
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
 Route::get('/users/{id}', [UserController::class, 'show']);
-Route::put('/users/{id}', [UserController::class, 'update']);
+// Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);

@@ -41,6 +41,16 @@ export default function AddRecipes() {
                 },
             });
             console.log('Recipe added:', response.data);
+            setTitle('');
+            setDescription('');
+            setInstructions('');
+            setCalories('');
+            setRegion('');
+            setImage(null);
+            setFat('');
+            setCarbs('');
+            setProtein('');
+
         } catch (error) {
             console.error('Error adding recipe:', error);
             if (error.response && error.response.data) {

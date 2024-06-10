@@ -1,0 +1,42 @@
+.edit-recipe {
+    padding: 20px;
+}
+
+.edit-recipe h1 {
+    margin-bottom: 20px;
+}
+
+.edit-recipe form div {
+    margin-bottom: 20px;
+}
+
+.edit-recipe form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.edit-recipe form input,
+.edit-recipe form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.edit-recipe form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-recipe form button:hover {
+    background-color: #45a049;
+}
+.error {
+    color: red;
+    margin-top: 5px;
+}

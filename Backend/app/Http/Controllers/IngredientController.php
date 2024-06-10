@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ingredient;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class IngredientController extends Controller
 {
@@ -38,6 +39,9 @@ class IngredientController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/ingredients');
             $data['image'] = $path;
+            Log::info('Image uploaded to: ' . $path);
+        } else {
+            Log::info('No image uploaded.');
         }
 
         $ingredient = Ingredient::create($data);
@@ -80,6 +84,7 @@ class IngredientController extends Controller
             }
             $path = $request->file('image')->store('public/ingredients');
             $data['image'] = $path;
+            Log::info('Image uploaded to: ' . $path);
         }
 
         $ingredient->update($data);
